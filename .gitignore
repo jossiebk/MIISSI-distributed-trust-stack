@@ -1,0 +1,52 @@
+# Compilación .NET
+bin/
+obj/
+
+# Artefactos de publicación
+publish/
+artifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.iml
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Resultados de pruebas y cobertura
+TestResults/
+coverage/
+*.trx
+
+# Paquetes NuGet generados
+*.nupkg
+*.snupkg
+
+# Variables de entorno
+.env
+.env.local
+
+# Configuración local de desarrollo
+appsettings.Development.json
+
+# Sistemas operativos
+.DS_Store
+Thumbs.db
