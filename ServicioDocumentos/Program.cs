@@ -18,10 +18,15 @@ builder.Services.AddScoped<IRepositorioDocumentos, RepositorioDocumentos>();
 
 builder.Services.AddScoped<IServicioGestionDocumentos, ServicioGestionDocumentos>();
 
-builder.Services.AddHttpClient<IClienteUsuarios, ClienteUsuarios>(client =>
-{
-    client.BaseAddress = new Uri("http://localhost:6001/");
-});
+builder.Services.AddHttpClient<IClienteUsuarios, ClienteUsuarios>(
+    (serviceProvider, client) =>
+    {
+        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+        var servicioUsuariosUrl = configuration["Servicios:ServicioUsuarios"];
+
+        client.BaseAddress = new Uri(servicioUsuariosUrl!);
+    });
 
 var app = builder.Build();
 

@@ -1,0 +1,37 @@
+# Repositorio Git
+.git
+.gitignore
+
+# Archivos de Visual Studio y Visual Studio Code
+.vs/
+.vscode/
+.idea/
+
+# Archivos generados durante la compilación
+bin/
+obj/
+
+# Archivos de registro
+logs/
+*.log
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos relacionados con Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Documentación
+README.md
+
+# Resultados de pruebas
+TestResults/
+coverage/
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
