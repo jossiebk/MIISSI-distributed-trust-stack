@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: servicio-documentos-config
+  namespace: miissi
+data:
+  Servicios__ServicioUsuarios: "http://servicio-usuarios"

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-documentos
+  namespace: miissi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-documentos
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: servicio-documentos
+    spec:
+      containers:
+        - name: servicio-documentos
+          image: jossie/servicio-documentos:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: Servicios__ServicioUsuarios
+              valueFrom:
+                configMapKeyRef:
+                  name: servicio-documentos-config
+                  key: Servicios__ServicioUsuarios
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          startupProbe:
+            httpGet:
+              path: /health/documentos/ready
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/documentos/ready
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/documentos/live
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20

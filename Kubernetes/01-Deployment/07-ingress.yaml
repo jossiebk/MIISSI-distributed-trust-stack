@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: miissi-ingress
+  namespace: miissi
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /api/usuarios
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-usuarios
+                port:
+                  number: 80
+          - path: /health/usuarios
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-usuarios
+                port:
+                  number: 80
+          - path: /api/documentos
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-documentos
+                port:
+                  number: 80
+          - path: /health/documentos
+            pathType: Prefix
+            backend:
+              service:
+                name: servicio-documentos
+                port:
+                  number: 80

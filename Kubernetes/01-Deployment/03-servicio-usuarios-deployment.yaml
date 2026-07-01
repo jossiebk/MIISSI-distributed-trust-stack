@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-usuarios
+  namespace: miissi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-usuarios
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: servicio-usuarios
+    spec:
+      containers:
+        - name: servicio-usuarios
+          image: jossie/servicio-usuarios:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          startupProbe:
+            httpGet:
+              path: /health/usuarios/ready
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health/usuarios/ready
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/usuarios/live
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20

@@ -5,6 +5,9 @@ using ServicioDocumentos.Servicios;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+// Agrego el nativo de .net para no agregar un endpoint de health check manualmente
+builder.Services.AddHealthChecks();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -39,5 +42,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health/documentos/live");
+app.MapHealthChecks("/health/documentos/ready");
 
 app.Run();
